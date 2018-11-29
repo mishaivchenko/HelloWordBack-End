@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="1.1" author="test_project@admin">
+
+        <insert tableName="contacts">
+            <column name="name" value="admin"/>
+        </insert>
+        <insert tableName="contacts">
+            <column name="name" value="Misha"/>
+        </insert>
+
+        <insert tableName="contacts">
+            <column name="name" value="Dima"/>
+        </insert>
+        <insert tableName="contacts">
+            <column name="name" value="Sasha"/>
+        </insert>
+        <insert tableName="contacts">
+            <column name="name" value="Marina"/>
+        </insert>
+        <insert tableName="contacts">
+            <column name="name" value="Igor"/>
+        </insert>
+        <insert tableName="contacts">
+            <column name="name" value="Katya"/>
+        </insert>
+        <insert tableName="contacts">
+            <column name="name" value="Ivan"/>
+        </insert>
+        <insert tableName="contacts">
+            <column name="name" value="Gena"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>
