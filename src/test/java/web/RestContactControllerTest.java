@@ -1,21 +1,17 @@
 package web;
 
 import domain.Contact;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 import persistence.ContactRepository;
 import persistence.inDb.config.InDbPersistenceConfiguration;
 import services.api.ContactService;
@@ -27,30 +23,25 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @SpringJUnitWebConfig(classes = {InDbPersistenceConfiguration.class, ServicesConfiguration.class, WebConfiguration.class})
-class RestContactControllerTest {
+public class RestContactControllerTest {
     @Mock
-    ContactService contactService;
+    private ContactService contactService;
     @Mock
-    ContactRepository contactRepository;
+    private ContactRepository contactRepository;
     @InjectMocks
-    RestContactController restContactController;
-    @Autowired
-    private WebApplicationContext webApplicationContext;
+    private RestContactController restContactController;
+
     private MockMvc mockMvc;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .build();
     }
 
+
     @Test
-    void shouldGetAllContacts() {
+    public void shouldGetAllContacts() {
         //Given
         List<Contact> list = Arrays.asList(
                 new Contact(1L, "Dima"),
@@ -65,7 +56,7 @@ class RestContactControllerTest {
     }
 
     @Test
-    void TestResponseShouldHaveStatusCode200Ok() {
+    public void TestResponseShouldHaveStatusCode200Ok() {
         //Given
         List<Contact> list = Arrays.asList(
                 new Contact(1L, "Dima"),
@@ -78,15 +69,9 @@ class RestContactControllerTest {
         Assertions.assertEquals(responseEntity.getStatusCode(), expectedHttpStatus);
     }
 
-    @Test
-    void TestResponseShouldHaveStatus400BadRequest() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/hello/contacts"))
-                .andExpect(status().isBadRequest())
-                .andReturn();
-    }
 
     @Test
-    void TestResponseShouldHaveStatus204NoContent() throws Exception {
+    public void TestResponseShouldHaveStatus204NoContent() throws Exception {
         //Given
         List<Contact> list = Arrays.asList(
                 new Contact(1L, "Dima"),

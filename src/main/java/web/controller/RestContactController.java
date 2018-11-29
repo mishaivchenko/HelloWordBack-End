@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("hello")
 public class RestContactController {
+
     private ContactService contactService;
 
     public RestContactController(ContactService contactService) {

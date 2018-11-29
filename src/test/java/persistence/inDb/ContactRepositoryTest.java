@@ -1,9 +1,9 @@
 package persistence.inDb;
 
 import domain.Contact;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import persistence.ContactRepository;
@@ -11,17 +11,17 @@ import persistence.inDb.config.InDbPersistenceConfiguration;
 
 import java.util.List;
 
-class ContactRepositoryInDbTest {
+public class ContactRepositoryTest {
     private ContactRepository contactRepository;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+  public void setUp() {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(InDbPersistenceConfiguration.class);
         contactRepository = applicationContext.getBean("contactRepository", ContactRepositoryInDb.class);
     }
 
     @Test
-    void TestMustReturnAllContactsFromDb() {
+    public void TestMustReturnAllContactsFromDb() {
         //Given
         int expected = 15;
         //When
@@ -31,7 +31,7 @@ class ContactRepositoryInDbTest {
     }
 
     @Test
-    void TestMustReturnFirstElementOfListAndElementMustBeEqualMisha() {
+    public void TestMustReturnFirstElementOfListAndElementMustBeEqualMisha() {
         //Given
         String expactedName = "Misha";
         //When
@@ -41,7 +41,7 @@ class ContactRepositoryInDbTest {
     }
 
     @Test
-    void TestMustReturnLastElementOfListAndElementMustBeEqualNatasha() {
+    public void TestMustReturnLastElementOfListAndElementMustBeEqualNatasha() {
         //Given
         String expectedName = "Natasha";
         //When

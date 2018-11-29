@@ -9,7 +9,7 @@ import services.impl.DefaultContactService;
 public class ServicesConfiguration {
 
     @Bean
-    DefaultContactService contactService(ContactRepository contactRepository) {
+    public DefaultContactService contactService(ContactRepository contactRepository) {
         return new DefaultContactService(contactRepository);
     }
 }

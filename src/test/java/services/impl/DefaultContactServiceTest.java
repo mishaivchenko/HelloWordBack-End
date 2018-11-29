@@ -1,9 +1,10 @@
 package services.impl;
 
 import domain.Contact;
+
+import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import persistence.inDb.config.InDbPersistenceConfiguration;
@@ -13,11 +14,12 @@ import services.configuration.ServicesConfiguration;
 import java.util.List;
 import java.util.function.Predicate;
 
-class DefaultContactServiceTest {
+public class DefaultContactServiceTest {
+
     private ContactService contactService;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(
                 ServicesConfiguration.class,
                 InDbPersistenceConfiguration.class);
@@ -25,7 +27,7 @@ class DefaultContactServiceTest {
     }
 
     @Test
-    void TestMustReturnAll() {
+    public void TestMustReturnAll() {
         //Given
         List list = contactService.getAll();
         //When
@@ -35,7 +37,7 @@ class DefaultContactServiceTest {
     }
 
     @Test
-    void TestReturnedListShouldNotContainsMisha() {
+    public void TestReturnedListShouldNotContainsMisha() {
         //Given
         Contact contact = new Contact(1L, "Misha");
         //When
@@ -47,7 +49,7 @@ class DefaultContactServiceTest {
     }
 
     @Test
-    void TestMustReturnContactsWhatNamesNotBeginAtCharA() {
+    public void TestMustReturnContactsWhatNamesNotBeginAtCharA() {
         //Given
         Predicate<Contact> p = e -> e.getName().startsWith("A");
         String pattern = "^A.*$";
@@ -58,8 +60,9 @@ class DefaultContactServiceTest {
         //Then
         Assertions.assertEquals(expected, result);
     }
+
     @Test
-    void TestListMustNotContainsUserWithNameWhatEqualsToRegExp(){
+    public void TestListMustNotContainsUserWithNameWhatEqualsToRegExp() {
         //Given
         String pattern = "^A.*$";
         Predicate<Contact> p = e -> e.getName().equals(pattern);
@@ -68,10 +71,11 @@ class DefaultContactServiceTest {
         List<Contact> list = contactService.getByRegExp(pattern);
         boolean result = list.stream().anyMatch(p);
         //Then
-        Assertions.assertEquals(expected,result);
+        Assertions.assertEquals(expected, result);
     }
+
     @Test
-    void TestMustReturnContactsWhatNamesNotContainsChars_aei() {
+    public void TestMustReturnContactsWhatNamesNotContainsChars_aei() {
         //Given
         Predicate<Contact> p = e -> e.getName().contains("a") ||
                 e.getName().contains("e") ||
