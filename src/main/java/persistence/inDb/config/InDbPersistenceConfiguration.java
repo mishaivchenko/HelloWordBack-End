@@ -1,44 +1,32 @@
 package persistence.inDb.config;
 
-import org.apache.commons.dbcp.BasicDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
+import org.springframework.context.annotation.Import;
 import persistence.inDb.ContactRepositoryInDb;
+import persistence.inDb.aspect.PersistenceAspect;
 
 import javax.sql.DataSource;
 
+@Import(PersistenceAspect.class)
 @Configuration
-@PropertySource("classpath:config.properties")
-public class InDbPersistenceConfiguration {
+@ConfigurationProperties(prefix = "spring.datasource")
+public class InDbPersistenceConfiguration extends HikariConfig {
 
-    @Autowired
-    private Environment environment;
-
-    @Autowired
-    public InDbPersistenceConfiguration(Environment environment) {
-        this.environment = environment;
-    }
 
     @Bean
-    public ContactRepositoryInDb contactRepository(DataSource dataSource) {
+    public ContactRepositoryInDb contactRepository() {
         ContactRepositoryInDb contactRepository = new ContactRepositoryInDb();
         contactRepository.setDataSource(dataSource());
         return contactRepository;
     }
 
+
     @Bean
     public DataSource dataSource() {
-        BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setDriverClassName(environment.getProperty("driver"));
-        basicDataSource.setUrl(environment.getProperty("url"));
-        basicDataSource.setUsername(environment.getProperty("user"));
-        basicDataSource.setPassword(environment.getProperty("password"));
-        basicDataSource.setRemoveAbandoned(true);
-        basicDataSource.setInitialSize(20);
-        basicDataSource.setMaxActive(30);
-        return basicDataSource;
+        return new HikariDataSource(this);
     }
 }

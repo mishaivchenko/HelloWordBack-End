@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import services.api.ContactService;
+import web.aspect.ControllerAdvice;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class RestContactController {
         this.contactService = contactService;
     }
 
+    @ControllerAdvice
     @GetMapping("contacts")
     public ResponseEntity<List> contactList(@RequestParam String nameFilter) {
         List<Contact> contactList = contactService.getByRegExp(nameFilter);

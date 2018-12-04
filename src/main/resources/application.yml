@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 50
+      pool-name: PoolForTestProject
+      auto-commit: false
+    jdbc-url: jdbc:mariadb://localhost:3306/test_project?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource

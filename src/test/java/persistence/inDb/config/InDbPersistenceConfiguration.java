@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 @Configuration
 public class InDbPersistenceConfiguration {
     @Bean
-  public   DataSource dataSource() {
+    public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
                 .addScript("schema.sql")
@@ -20,7 +20,7 @@ public class InDbPersistenceConfiguration {
     }
 
     @Bean
-   public ContactRepositoryInDb contactRepository() {
+    public ContactRepositoryInDb contactRepository() {
         ContactRepositoryInDb contactRepository = new ContactRepositoryInDb();
         contactRepository.setDataSource(dataSource());
         return contactRepository;

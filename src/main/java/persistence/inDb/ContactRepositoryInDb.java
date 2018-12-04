@@ -3,6 +3,7 @@ package persistence.inDb;
 import domain.Contact;
 import org.springframework.jdbc.core.JdbcTemplate;
 import persistence.ContactRepository;
+import persistence.inDb.aspect.PersistenceAdvice;
 import persistence.inDb.mapper.ContactMapper;
 
 import javax.sql.DataSource;
@@ -18,6 +19,7 @@ public class ContactRepositoryInDb implements ContactRepository {
 
 
     @Override
+    @PersistenceAdvice
     public List<Contact> findAll() {
         String SQL = "SELECT * FROM contacts";
         return jdbcTemplate.query(SQL, new ContactMapper());
